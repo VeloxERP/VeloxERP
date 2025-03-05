@@ -1,0 +1,4 @@
+packages:
+  - "frontend"
+  - "server"
+  - "plugins/*" # Falls du Plugin-Pakete hast

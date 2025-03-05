@@ -4,4 +4,4 @@ node_modules/
 .idea
 
 ### dotenv ###
-.env
+src/server/.env
