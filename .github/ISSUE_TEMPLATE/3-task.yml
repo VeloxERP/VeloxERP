@@ -1,0 +1,34 @@
+name: Task
+description: Use this template for tasks, or issues that don't fall under feature requests
+  or bug reports.
+title: "[Task]: "
+labels: [ "new" ]
+type: Task
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > [!WARNING]
+        > Questions or discussions should be conducted in the discussion tab on this repository. Only use this template if you are sure that it qualifies as an issue.
+
+  - type: input
+    id: description
+    attributes:
+      label: Description
+      description: Please provide a detailed description of your issue. Include any relevant context, background, or links that can help us understand your submission.
+      required: true
+
+  - type: textarea
+    id: resources
+    attributes:
+      label: Additional Resources
+      description: Feel free to include links to log files, screenshots, or any other resources that could help clarify your issue.
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/VeloxERP/VeloxERP/tree/main/.github/CODE_OF_CONDUCT).
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

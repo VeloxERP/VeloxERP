@@ -2,7 +2,12 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt'],
+  modules: [
+    '@nuxtjs/tailwindcss',
+    'shadcn-nuxt',
+    "nuxt-auth-utils"
+  ],
+  css: ['/assets/css/tailwind.css'],
   shadcn: {
     /**
      * Prefix for all the imported component
@@ -10,8 +15,14 @@ export default defineNuxtConfig({
     prefix: '',
     /**
      * Directory that the component lives in.
-     * @default "./components/ui"
+     * @default "./components"
      */
-    componentDir: './components/ui'
+    componentDir: './components'
+  },
+  runtimeConfig: {
+    databaseHost: "localhost",
+    databaseUser: "velox_erp",
+    databasePassword: "&lD4!8PJe8RIXE",
+    databaseDatabase: "velox_erp"
   }
 })

@@ -1,0 +1,91 @@
+name: 🐞 Bug Report
+description: File a bug report.
+title: "[Bug]: "
+labels: [ "new" ]
+type: Bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+
+  - type: input
+    id: bug_description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is.
+      required: true
+
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: To Reproduce
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected behavior
+      description: A clear and concise description of what you expected to happen.
+
+  - type: textarea
+    id: desktop_info
+    attributes:
+      label: Desktop Information
+      description: Provide details about your OS, browser, and version.
+      placeholder: |
+        - OS: [e.g. Windows, macOS, Linux] including version
+        - Browser: [e.g. Chrome, Firefox, Safari]
+        - Version: [e.g. 22]
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here.
+
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version channel
+      description: What version of our software are you running?
+      options:
+        - Production (Default)
+        - Beta
+        - Edge
+      default: 0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: What browsers are you seeing the problem on?
+      multiple: true
+      options:
+        - Firefox
+        - Chrome
+        - Safari
+        - Chrome based (Provide in Additional context)
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/VeloxERP/VeloxERP/tree/main/.github/CODE_OF_CONDUCT.md).
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

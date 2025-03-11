@@ -11,17 +11,21 @@
     "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
+    "@vueuse/core": "^13.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.40.0",
     "lucide-vue-next": "^0.477.0",
     "mysql2": "^3.13.0",
     "nuxt": "^3.15.4",
+    "nuxt-auth-utils": "0.5.16",
+    "reka-ui": "^2.0.2",
     "shadcn-nuxt": "1.0.2",
     "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.7",
     "vue": "^3.5.13",
-    "vue-router": "^4.5.0"
+    "vue-router": "^4.5.0",
+    "zod": "^3.24.2"
   },
   "packageManager": "pnpm@8.15.0+sha1.97e9ea18c26f67eaa5b0b394f1cfbcdc65b1b02d",
   "devDependencies": {
