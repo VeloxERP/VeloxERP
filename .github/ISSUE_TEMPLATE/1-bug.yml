@@ -1,5 +1,5 @@
-name: 🐞 Bug Report
-description: File a bug report.
+name: "🐞 Bug Report"
+description: "File a bug report."
 title: "[Bug]: "
 labels: [ "new" ]
 type: Bug
@@ -14,6 +14,7 @@ body:
     attributes:
       label: Describe the bug
       description: A clear and concise description of what the bug is.
+    validations:
       required: true
 
   - type: textarea
@@ -26,6 +27,7 @@ body:
         2. Click on '....'
         3. Scroll down to '....'
         4. See error
+    validations:
       required: true
 
   - type: textarea
@@ -65,7 +67,6 @@ body:
       options:
         - Production (Default)
         - Beta
-        - Edge
       default: 0
     validations:
       required: true

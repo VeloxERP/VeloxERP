@@ -96,7 +96,7 @@ Here are some useful resources to help you get started and work effectively with
 Contributions are welcome! Please see our [CONTRIBUTING](.github/CONTRIBUTING.md) guidelines for instructions on reporting issues, suggesting new features, or submitting pull requests. Your contributions help make VeloxERP better for everyone.
 
 ## License
-This project is licensed under the Apache License, Version 2.0. For more details, refer to the [LICENSE](.github/LICENSE) file.
+This project is licensed under the Apache License, Version 2.0. For more details, refer to the [LICENSE](LICENSE) file.
 
 ## Acknowledgements
 A special thank you to all the developers, contributors, and the open-source community who have helped shape and improve VeloxERP.

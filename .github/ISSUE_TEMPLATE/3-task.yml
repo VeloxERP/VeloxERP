@@ -1,6 +1,5 @@
-name: Task
-description: Use this template for tasks, or issues that don't fall under feature requests
-  or bug reports.
+name: "Task"
+description: "Use this template for tasks, or issues that don't fall under feature requests or bug reports."
 title: "[Task]: "
 labels: [ "new" ]
 type: Task
@@ -16,6 +15,7 @@ body:
     attributes:
       label: Description
       description: Please provide a detailed description of your issue. Include any relevant context, background, or links that can help us understand your submission.
+    validations:
       required: true
 
   - type: textarea
