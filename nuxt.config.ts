@@ -21,8 +21,12 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     databaseHost: "localhost",
+    databasePort: 3306,
     databaseUser: "velox_erp",
     databasePassword: "&lD4!8PJe8RIXE",
     databaseDatabase: "velox_erp"
+  },
+  alias:  {
+    "#server": "<rootDir>/server"
   }
 })

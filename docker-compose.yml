@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'veloxerp'
+      MYSQL_USER: 'veloxerp'
+      MYSQL_PASSWORD: '123456789'
+      MYSQL_ROOT_PASSWORD: '1234root56789'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'

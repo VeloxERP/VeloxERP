@@ -37,11 +37,20 @@
                      v-model="credentials.password"
                      required/>
             </div>
-            <Button type="submit" class="w-full">
-              Login
-            </Button>
+            <div>
+              <div class="pb-2" v-if="error">
+                <small class="text-sm font-medium leading-none text-red-600">
+                  Username or Password is wrong
+                </small>
+              </div>
+
+              <Button type="submit" class="w-full">
+                Login
+              </Button>
+            </div>
+
             <div v-if="false"
-                class="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
+                 class="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
               <span class="relative z-10 bg-background px-2 text-muted-foreground">
                 Or continue with
               </span>
@@ -103,6 +112,9 @@ import {Label} from '@/components/label'
 // Assets
 import teaser from '@/assets/images/pages/login/teaser.jpg'
 
+// Icons
+
+let error = ref(false);
 const {loggedIn, user, fetch: refreshSession} = useUserSession()
 const credentials = reactive({
   username: '',
@@ -119,6 +131,6 @@ async function login() {
         await refreshSession()
         await navigateTo('/')
       })
-      .catch(() => alert('Bad credentials'))
+      .catch(() => error.value = true)
 }
 </script>
