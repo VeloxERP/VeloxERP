@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: veloxerp_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/my.cnf:ro
+    ports:
+      - "3306:3306"
+
+  proxy:
+    image: nginx:latest
+    container_name: veloxerp_proxy
+    restart: always
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - mysql
+      - mailserver
+
+  mailserver:
+    image: mailserver/docker-mailserver:latest
+    container_name: veloxerp_mail
+    restart: always
+    hostname: ${NUXT_SMTP_HOST}
+    domainname: ${NUXT_SMTP_DOMAIN}
+    env_file:
+      - ./mail/mailserver.env
+    volumes:
+      - mail_data:/var/mail
+      - mail_state:/var/mail-state
+      - mail_config:/tmp/docker-mailserver
+    ports:
+      - "25:25"
+      - "587:587"
+      - "993:993"
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
+  mail_data:
+  mail_state:
+  mail_config:
