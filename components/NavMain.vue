@@ -23,12 +23,12 @@ defineProps<{
       url: string
     }[]
   }[],
-  name: string
+  title: string
 }>()
 </script>
 <template>
   <SidebarGroup>
-    <SidebarGroupLabel>{{ name || '' }}</SidebarGroupLabel>
+    <SidebarGroupLabel>{{ title || '' }}</SidebarGroupLabel>
     <SidebarMenu>
       <Collapsible
           v-for="item in items"

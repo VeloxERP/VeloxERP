@@ -1,7 +1,12 @@
-import { z } from 'zod'
-import { users } from '@/server/database/schema'
-import { InferInsertModel } from 'drizzle-orm'
+import {z} from 'zod'
+import {users} from '@/server/database/schema'
+import {InferInsertModel} from 'drizzle-orm'
+import {v7} from "uuid";
+import User from '~/server/models/User';
+import {defineWrappedResponseHandler} from "~/server/utils/handler";
+import ResponseBody from "~/server/models/util/ResponseBody";
 
+const {sendMail} = useNodeMailer()
 const bodySchema = z.object({
     email: z.string().email(),
     username: z.string().min(3).max(64),
@@ -21,25 +26,36 @@ const generatePassword = (length = 8): string => {
     return password
 }
 
-export default defineEventHandler(async (event) => {
+//TODO make mail better please
+const sendPasswordEmail = async (email: string, password: string) => {
+    return sendMail({
+        to: email,
+        subject: 'User Created',
+        text: "A account for you was just created!\n Login with this password: " + password,
+    });
+}
+
+export default defineWrappedResponseHandler(async (event) => {
     // Validate and destructure the request body using Zod
-    const { email, username, firstname, lastname } = await readValidatedBody(event, bodySchema.parse)
+    const {email, username, firstname, lastname} = await readValidatedBody(event, bodySchema.parse)
 
-    // Build the new user object
-    const newUser: NewUser = {
-        email,
-        username,
-        firstname,
-        lastname,
-        password: generatePassword(12),
+    console.log(await hashPassword(generatePassword(12)));
+    let newUser;
+    let password = generatePassword(12);
+
+    try {
+        newUser = await User.create({
+            id: v7(),
+            email: email,
+            username: username,
+            firstname: firstname,
+            lastname: lastname,
+            password: await hashPassword(password),
+        });
+        sendPasswordEmail(email, password);
+        return new ResponseBody(201, undefined, {id: newUser.id});
+    } catch (e) {
+        return new ResponseBody(400, "error.user.exists", undefined);
     }
-
-    // Get a singleton drizzle instance
-    const drizzle = useDrizzle()
-
-    // Insert the new user and return the inserted id(s)
-    console.log(newUser)
-    const result = await drizzle.insert(users).values([newUser])//.$returningId()
-    return JSON.stringify({id: result});
 })
 

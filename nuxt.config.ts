@@ -5,7 +5,8 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     'shadcn-nuxt',
-    "nuxt-auth-utils"
+    "nuxt-auth-utils",
+    'nuxt-nodemailer'
   ],
   css: ['/assets/css/tailwind.css'],
   shadcn: {
@@ -19,14 +20,26 @@ export default defineNuxtConfig({
      */
     componentDir: './components'
   },
+  nodemailer: {
+    from: '"John Doe" <john@doe.com>',
+    host: 'smtp.mailtrap.io',
+    port: 465,
+    secure: true,
+    auth: {
+      user: 'john@doe.com',
+      pass: '',
+    },
+  },
   runtimeConfig: {
-    databaseHost: "localhost",
-    databasePort: 3306,
-    databaseUser: "velox_erp",
-    databasePassword: "&lD4!8PJe8RIXE",
-    databaseDatabase: "velox_erp"
+    database: {
+      host: 'localhost',
+      port: 3306,
+      user: 'veloxerp',
+      password: '&lD4!8PJe8RIXE',
+      name: 'veloxerp'
+    },
   },
   alias:  {
-    "#server": "<rootDir>/server"
+    "#server": "~~/server"
   }
 })

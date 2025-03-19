@@ -1,25 +1,31 @@
 import {z} from 'zod'
-import type {User} from '~/server/database/schema'
+import {User} from '#server/models/User'
+import ResponseBody from "~/server/models/util/ResponseBody";
 
 const bodySchema = z.object({
     username: z.string().min(3).max(64),
     password: z.string().min(8)
 })
 
-export default defineEventHandler(async (event) => {
+export default defineWrappedResponseHandler(async (event) => {
+    const failedMessage = "error.auth.bad-credentials";
     const {username, password} = await readValidatedBody(event, bodySchema.parse)
-    const user: User | undefined = await useDrizzle().query.users.findFirst({
-        where: (users, { eq }) => eq(users.username, username),
-    });
 
-    if (user !== undefined && await verifyPassword(user.password, password)) {
-        await setUserSession(event, {
-            user: user
+    console.log(username);
+    return User.findByUsername(username)
+        .then(async (user: User) => {
+
+            console.log(user);
+
+            if (await verifyPassword(user.password, password)) {
+                await setUserSession(event, {
+                    user: user
+                })
+                return new ResponseBody(200, undefined, undefined)
+            }
+            return new ResponseBody(401, failedMessage, undefined);
         })
-        return {}
-    }
-    throw createError({
-        statusCode: 401,
-        message: 'Bad credentials'
-    })
+        .catch((err: Error) => {
+            return new ResponseBody(401, failedMessage, err);
+        });
 })

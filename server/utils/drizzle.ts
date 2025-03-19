@@ -7,12 +7,13 @@ export {sql, eq, and, or} from 'drizzle-orm'
 
 const runtimeConfig = useRuntimeConfig()
 const poolConnection = mysql.createPool({
-    host: runtimeConfig.databaseHost,
-    port: runtimeConfig.port,
-    database: runtimeConfig.databaseDatabase,
-    user: runtimeConfig.databaseUser,
-    password: runtimeConfig.databasePassword
+    host: runtimeConfig.database.host,
+    port: runtimeConfig.database.port,
+    database: runtimeConfig.database.name,
+    user: runtimeConfig.database.user,
+    password: String(runtimeConfig.database.password),
 });
+
 
 export const tables = schema
 

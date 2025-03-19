@@ -15,7 +15,11 @@ import {
   PieChart,
   Settings2,
   SquareTerminal,
-  Users
+
+  Users,
+  Barcode,
+  PackageSearch,
+    BookUser
 } from 'lucide-vue-next'
 
 const props = withDefaults(defineProps<SidebarProps>(), {
@@ -47,13 +51,36 @@ const data = {
   ],
   navMain: [
     {
-      title: 'Playground',
+      title: 'Adressen',
       url: '#',
-      icon: SquareTerminal,
+      icon: BookUser,
       isActive: true,
       items: [
         {
-          title: 'History',
+          title: 'Kunden',
+          url: '#'
+        },
+        {
+          title: 'Lieferanten',
+          url: '#'
+        },
+        {
+          title: 'Hersteller',
+          url: '#'
+        },
+        {
+          title: 'Mitarbeiter',
+          url: '#'
+        }
+      ]
+    },
+    {
+      title: 'Produkte',
+      url: '#',
+      icon: Barcode,
+      items: [
+        {
+          title: 'Eigenschaften',
           url: '#',
         },
         {
@@ -67,9 +94,9 @@ const data = {
       ],
     },
     {
-      title: 'Models',
+      title: 'Logistik',
       url: '#',
-      icon: Bot,
+      icon: PackageSearch,
       items: [
         {
           title: 'Genesis',
@@ -175,8 +202,11 @@ const data = {
       <TeamSwitcher :teams="data.teams"/>
     </SidebarHeader>
     <SidebarContent>
-      <NavMain :items="data.navMain" name="Platform"/>
-      <NavMain :items="data.adminRoutes" name="Administration"/>
+      <template v-for="item in useNavigation()">
+        <component :is="item.type" v-bind="item" v-if="item.show == undefined || item.show()"/>
+      </template>
+<!--      <NavMain :items="data.navMain" name="Platform"/>-->
+<!--      <NavMain :items="data.adminRoutes" name="Administration"/>-->
     </SidebarContent>
     <SidebarFooter>
       <NavUser :user="data.user"/>
