@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1741871081508,
+      "tag": "0000_watery_expediter",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1742063838663,
+      "tag": "0001_flippant_speed",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1742064372963,
+      "tag": "0002_sad_tinkerer",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1742072881679,
+      "tag": "0003_dapper_madame_masque",
+      "breakpoints": true
+    }
+  ]
+}
