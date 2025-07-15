@@ -1,0 +1,9 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Always use code style like in other files.
+
+For frontend see [categories.vue](mdc:pages/products/categories.vue)
+For backend see other files in server folder.

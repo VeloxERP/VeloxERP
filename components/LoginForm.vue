@@ -104,10 +104,10 @@
 </template>
 
 <script setup lang="ts">
-import {Button} from "@/components/button";
-import {Card, CardContent} from "@/components/card";
-import {Input} from '@/components/input'
-import {Label} from '@/components/label'
+import {Button} from "@/components/ui/button";
+import {Card, CardContent} from "@/components/ui/card";
+import {Input} from '@/components/ui/input'
+import {Label} from '@/components/ui/label'
 
 // Assets
 import teaser from '@/assets/images/pages/login/teaser.jpg'

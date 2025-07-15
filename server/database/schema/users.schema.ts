@@ -1,13 +1,12 @@
 import {mysqlTable as table, char, varchar, timestamp} from "drizzle-orm/mysql-core"
 import {InferSelectModel, relations} from 'drizzle-orm'
-import {timestamps} from "./columns.helpers"
-import {v7} from "uuid"
+import {timestamps, uuid} from "./columns.helpers"
 
 import {address} from "./addresses.schema";
-import {rolesSchema} from "~/server/database/schema/roles.schema";
+import {rolesSchema} from "./roles.schema";
 
 export const users = table('users', {
-    id: varchar({length: 36}).$default(() => v7()).primaryKey(),
+    ...uuid,
     username: varchar({length: 32}).notNull().unique(),
     email: varchar({length: 256}).notNull().unique(),
     password: char({length: 134}).notNull(),

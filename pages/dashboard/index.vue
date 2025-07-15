@@ -8,13 +8,13 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@/components/breadcrumb'
-import { Separator } from '@/components/separator'
+} from '@/components/ui/breadcrumb'
+import { Separator } from '@/components/ui/separator'
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from '@/components/sidebar'
+} from '@/components/ui/sidebar'
 </script>
 <template>
   <SidebarProvider class="dark">

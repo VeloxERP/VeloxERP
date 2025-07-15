@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type {SidebarProps} from '@/components/sidebar'
-import {Sidebar, SidebarContent, SidebarFooter, SidebarHeader,} from '@/components/sidebar'
+import type {SidebarProps} from '@/components/ui/sidebar'
+import {Sidebar, SidebarContent, SidebarFooter, SidebarHeader,} from '@/components/ui/sidebar'
 import NavMain from '@/components/NavMain.vue'
 import NavUser from '@/components/NavUser.vue'
 import TeamSwitcher from '@/components/TeamSwitcher.vue'

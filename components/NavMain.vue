@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {Collapsible, CollapsibleContent, CollapsibleTrigger,} from '@/components/collapsible'
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -9,7 +8,8 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from '@/components/sidebar'
+} from '@/components/ui/sidebar'
+import {Collapsible, CollapsibleContent, CollapsibleTrigger,} from '@/components/ui/collapsible'
 import {ChevronRight, type LucideIcon} from 'lucide-vue-next'
 
 defineProps<{

@@ -12,3 +12,10 @@ services:
       - '3306:3306'
     expose:
       - '3306'
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - '6379:6379'
+    expose:
+      - '6379'

@@ -1,13 +1,36 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
-  devtools: { enabled: true },
+  devtools: {
+    enabled: true,
+
+    timeline: {
+      enabled: true
+    }
+  },
   modules: [
     '@nuxtjs/tailwindcss',
     'shadcn-nuxt',
     "nuxt-auth-utils",
-    'nuxt-nodemailer'
+    'nuxt-nodemailer',
+    '@nuxtjs/i18n',
+    '@nuxtjs/color-mode'
   ],
+  colorMode: {
+    classSuffix: ''
+  },
+  nitro: {
+    esbuild: {
+      options: {
+        target: 'esnext',
+      }
+    }
+  },
+  vite: {
+    esbuild: {
+      target: 'esnext',
+    }
+  },
   css: ['/assets/css/tailwind.css'],
   shadcn: {
     /**
@@ -16,9 +39,9 @@ export default defineNuxtConfig({
     prefix: '',
     /**
      * Directory that the component lives in.
-     * @default "./components"
+     * @default "./components/ui"
      */
-    componentDir: './components'
+    componentDir: './components/ui'
   },
   nodemailer: {
     from: '"John Doe" <john@doe.com>',
@@ -31,15 +54,20 @@ export default defineNuxtConfig({
     },
   },
   runtimeConfig: {
+    // Private keys are only available on the server
     database: {
-      host: 'localhost',
-      port: 3306,
-      user: 'veloxerp',
-      password: '&lD4!8PJe8RIXE',
-      name: 'veloxerp'
+      host: process.env.DATABASE_HOST,
+      port: process.env.DATABASE_PORT,
+      name: process.env.DATABASE_NAME,
+      user: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD
     },
+    redis: {
+      host: process.env.REDIS_HOST,
+      port: process.env.REDIS_PORT
+    }
   },
-  alias:  {
-    "#server": "~~/server"
-  }
+  // alias:  {
+  //   "#server": "~~/server"
+  // }
 })

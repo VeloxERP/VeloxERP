@@ -1,0 +1,552 @@
+openapi: 3.0.0
+info:
+  title: VeloxERP API
+  description: |
+    # VeloxERP API Documentation
+    
+    This comprehensive API allows you to interact with the VeloxERP system, providing endpoints to manage product properties and their values.
+    
+    ## Authentication
+    All API requests require authentication (not shown in this documentation). Please contact your system administrator for access.
+    
+    ## Response Format
+    All responses follow a standard format with `status` and either `body` or `message` fields.
+  version: 1.0.0
+  contact:
+    name: VeloxERP Support
+    email: support@veloxerp.com
+servers:
+  - url: /api
+    description: API Server
+
+tags:
+  - name: Properties
+    description: Endpoints for managing product properties (such as color, size, material)
+  - name: Property Values
+    description: Endpoints for managing values associated with properties (e.g., "Red" for color property)
+
+paths:
+  # Properties endpoints
+  /properties:
+    get:
+      summary: Get all properties
+      description: |
+        Returns a complete list of all product properties in the system.
+        Properties are attributes that can be assigned to products (e.g., color, size, material).
+      operationId: getProperties
+      tags:
+        - Properties
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Property'
+    post:
+      summary: Create a new property
+      description: |
+        Creates a new product property in the system.
+        You must specify a unique code, name, and type for the property.
+      operationId: createProperty
+      tags:
+        - Properties
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewProperty'
+      responses:
+        '201':
+          description: Property created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 201
+                  body:
+                    $ref: '#/components/schemas/Property'
+        '409':
+          description: Property with this code already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 409
+                  message:
+                    type: string
+                    example: Property with this code already exists
+
+  /properties/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: Unique identifier of the property
+    get:
+      summary: Get a property by ID
+      description: Returns detailed information about a single property by its unique identifier
+      operationId: getPropertyById
+      tags:
+        - Properties
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  body:
+                    $ref: '#/components/schemas/Property'
+        '404':
+          description: Property not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: Property not found
+    put:
+      summary: Update a property
+      description: |
+        Updates an existing property with new information.
+        All fields in the request will replace the existing values.
+      operationId: updateProperty
+      tags:
+        - Properties
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewProperty'
+      responses:
+        '200':
+          description: Property updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  body:
+                    $ref: '#/components/schemas/Property'
+        '404':
+          description: Property not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: Property not found
+    delete:
+      summary: Delete a property
+      description: |
+        Permanently removes a property from the system.
+        This operation cannot be undone. Any associated property values will also be deleted.
+      operationId: deleteProperty
+      tags:
+        - Properties
+      responses:
+        '200':
+          description: Property deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: Property deleted successfully
+        '404':
+          description: Property not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: Property not found
+
+  # Property values endpoints
+  /properties/{id}/values:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: Unique identifier of the property
+    get:
+      summary: Get all values for a property
+      description: |
+        Returns a complete list of all values associated with a specific property.
+        For example, for a "Color" property, this might return values like "Red", "Blue", "Green".
+      operationId: getPropertyValues
+      tags:
+        - Property Values
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  body:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PropertyValue'
+    post:
+      summary: Create a new value for a property
+      description: |
+        Adds a new possible value to an existing property.
+        For select-type properties, this creates a new option in the dropdown.
+      operationId: createPropertyValue
+      tags:
+        - Property Values
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewPropertyValue'
+      responses:
+        '201':
+          description: Property value created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 201
+                  body:
+                    $ref: '#/components/schemas/PropertyValue'
+        '409':
+          description: Value already exists for this property
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 409
+                  message:
+                    type: string
+                    example: Value already exists for this property
+
+  /property-values/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: Unique identifier of the property value
+    get:
+      summary: Get a property value by ID
+      description: Returns detailed information about a single property value by its unique identifier
+      operationId: getPropertyValueById
+      tags:
+        - Property Values
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  body:
+                    $ref: '#/components/schemas/PropertyValue'
+        '404':
+          description: Property value not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: Property value not found
+    put:
+      summary: Update a property value
+      description: |
+        Updates an existing property value with new information.
+        You can modify the display name, position, or other attributes of the value.
+      operationId: updatePropertyValue
+      tags:
+        - Property Values
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewPropertyValue'
+      responses:
+        '200':
+          description: Property value updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  body:
+                    $ref: '#/components/schemas/PropertyValue'
+        '404':
+          description: Property value not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: Property value not found
+    delete:
+      summary: Delete a property value
+      description: |
+        Permanently removes a property value from the system.
+        This operation cannot be undone and will remove this value from all products using it.
+      operationId: deletePropertyValue
+      tags:
+        - Property Values
+      responses:
+        '200':
+          description: Property value deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: Property value deleted successfully
+        '404':
+          description: Property value not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: Property value not found
+
+components:
+  schemas:
+    Property:
+      type: object
+      description: |
+        Represents a product property that can be assigned to products.
+        Properties define characteristics like color, size, material, etc.
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+          description: Unique identifier for the property
+        name:
+          type: string
+          example: Color
+          description: Human-readable name of the property
+        code:
+          type: string
+          example: color
+          description: Machine-friendly code/slug for the property (must be unique)
+        type:
+          type: string
+          enum: [text, number, select, multiselect, color, boolean]
+          example: select
+          description: |
+            Data type of the property:
+            * text - Free text input
+            * number - Numeric values only
+            * select - Single selection from predefined options
+            * multiselect - Multiple selections from predefined options
+            * color - Color picker with hex value
+            * boolean - True/false value
+        description:
+          type: string
+          example: Product color
+          description: Optional detailed description of what this property represents
+        createdAt:
+          type: string
+          format: date-time
+          description: When the property was created
+        updatedAt:
+          type: string
+          format: date-time
+          description: When the property was last updated
+      required:
+        - id
+        - name
+        - code
+        - type
+
+    NewProperty:
+      type: object
+      description: Schema for creating a new property
+      properties:
+        name:
+          type: string
+          example: Color
+          description: Human-readable name of the property
+        code:
+          type: string
+          example: color
+          description: Machine-friendly code/slug for the property (must be unique)
+        type:
+          type: string
+          enum: [text, number, select, multiselect, color, boolean]
+          example: select
+          description: Data type of the property
+        description:
+          type: string
+          example: Product color
+          description: Optional detailed description of what this property represents
+      required:
+        - name
+        - code
+        - type
+
+    PropertyValue:
+      type: object
+      description: |
+        Represents a specific value for a property.
+        For example, "Red" might be a value for the "Color" property.
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+          description: Unique identifier for the property value
+        propertyId:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174001
+          description: ID of the property this value belongs to
+        value:
+          type: string
+          example: Red
+          description: The actual value (used internally and for filtering)
+        displayName:
+          type: string
+          example: Ruby Red
+          description: Human-friendly display name for the value (can be different from value)
+        position:
+          type: integer
+          example: 1
+          description: Order position for display (lower numbers appear first)
+        colorCode:
+          type: string
+          example: '#FF0000'
+          description: Hex color code (only applicable for properties of type 'color')
+        createdAt:
+          type: string
+          format: date-time
+          description: When the property value was created
+        updatedAt:
+          type: string
+          format: date-time
+          description: When the property value was last updated
+      required:
+        - id
+        - propertyId
+        - value
+
+    NewPropertyValue:
+      type: object
+      description: Schema for creating a new property value
+      properties:
+        propertyId:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174001
+          description: ID of the property this value belongs to
+        value:
+          type: string
+          example: Red
+          description: The actual value (used internally and for filtering)
+        displayName:
+          type: string
+          example: Ruby Red
+          description: Human-friendly display name for the value
+        position:
+          type: integer
+          example: 1
+          description: Order position for display (lower numbers appear first)
+        colorCode:
+          type: string
+          example: '#FF0000'
+          description: Hex color code (only applicable for properties of type 'color')
+      required:
+        - propertyId
+        - value 

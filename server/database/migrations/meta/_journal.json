@@ -17,17 +17,17 @@
       "breakpoints": true
     },
     {
-      "idx": 2,
-      "version": "5",
-      "when": 1742064372963,
-      "tag": "0002_sad_tinkerer",
-      "breakpoints": true
-    },
-    {
       "idx": 3,
       "version": "5",
       "when": 1742072881679,
       "tag": "0003_dapper_madame_masque",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1742488802096,
+      "tag": "0005_safe_diamondback",
       "breakpoints": true
     }
   ]

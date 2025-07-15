@@ -1,5 +1,5 @@
 import {z} from 'zod'
-import {User} from '#server/models/User'
+import {User} from '~/server/models/User'
 import ResponseBody from "~/server/models/util/ResponseBody";
 
 const bodySchema = z.object({

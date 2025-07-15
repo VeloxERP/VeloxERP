@@ -1,0 +1,6 @@
+---
+description: 
+globs: server/api/***
+alwaysApply: false
+---
+Adjust the [swagger.yaml](mdc:swagger.yaml) documentation accordingly. Always keep in mind, it should be easy to read as a human and als easy been overseen.
