@@ -12,7 +12,6 @@ export default defineNuxtConfig({
     }
   },
   modules: [
-    "nuxt-auth-utils",
     'nuxt-nodemailer',
     '@nuxtjs/i18n',
     'shadcn-nuxt'
