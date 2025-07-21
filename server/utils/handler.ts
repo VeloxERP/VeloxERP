@@ -1,5 +1,5 @@
 import type {EventHandler, EventHandlerRequest} from 'h3'
-import ResponseBody from "~/server/models/util/ResponseBody";
+import ResponseBody from "~~/server/models/util/ResponseBody";
 import { useRedis } from './redis';
 
 interface HandlerOptions {

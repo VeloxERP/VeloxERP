@@ -1,8 +1,8 @@
-import { propertyValues } from '~/server/database/schema';
+import { propertyValues } from '~~/server/database/schema';
 import { eq } from 'drizzle-orm';
-import { useDrizzle } from '~/server/utils/drizzle';
-import { defineWrappedResponseHandler } from '~/server/utils/handler';
-import ResponseBody from '~/server/models/util/ResponseBody';
+import { useDrizzle } from '~~/server/utils/drizzle';
+import { defineWrappedResponseHandler } from '~~/server/utils/handler';
+import ResponseBody from '~~/server/models/util/ResponseBody';
 import type { H3Event } from 'h3';
 
 export default defineWrappedResponseHandler(async (event: H3Event) => {

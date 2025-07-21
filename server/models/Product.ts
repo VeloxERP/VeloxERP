@@ -1,9 +1,9 @@
 import type { InferSelectModel, InferInsertModel } from "drizzle-orm";
-import { products } from "~/server/database/schema/products.schema";
+import { products } from "~~/server/database/schema/products.schema";
 import { v7 } from "uuid";
-import Entity from "~/server/models/util/Entity";
+import Entity from "~~/server/models/util/Entity";
 import { eq } from "drizzle-orm";
-import { useDrizzle } from "~/server/utils/drizzle";
+import { useDrizzle } from "~~/server/utils/drizzle";
 
 type Product = InferSelectModel<typeof products>;
 type NewProduct = InferInsertModel<typeof products>;

@@ -1,4 +1,4 @@
-import { productCategories } from '~/server/database/schema';
+import { productCategories } from '~~/server/database/schema';
 import { useDrizzle } from '../../utils/drizzle';
 import { defineWrappedResponseHandler } from '../../utils/handler';
 import ResponseBody from '../../models/util/ResponseBody';

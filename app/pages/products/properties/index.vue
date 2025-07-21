@@ -114,7 +114,7 @@
 <script setup lang="ts">
 import {Button} from '~/components/ui/button'
 import {Card, CardContent, CardTitle} from "~/components/ui/card";
-import DataTable from '~/components/ui/data-table.vue'
+import {DataTable} from '~/components/ui/data-table'
 import {
   DropdownMenu,
   DropdownMenuContent,

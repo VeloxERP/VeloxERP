@@ -1,6 +1,6 @@
 import {z} from 'zod'
-import {User} from '~/server/models/User'
-import ResponseBody from "~/server/models/util/ResponseBody";
+import {User} from '~~/server/models/User'
+import ResponseBody from "~~/server/models/util/ResponseBody";
 
 const bodySchema = z.object({
     username: z.string().min(3).max(64),

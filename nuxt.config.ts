@@ -26,6 +26,7 @@ export default defineNuxtConfig({
       }
     }
   },
+  css: ['~/assets/css/tailwind.css'],
   vite: {
     esbuild: {
       target: 'esnext',

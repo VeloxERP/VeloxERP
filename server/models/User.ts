@@ -1,10 +1,10 @@
 // /server/models/User.ts
-import {eq} from "drizzle-orm/expressions";
-import type {UserSchemaType} from "~/server/database/schema/users.schema";
-import {users} from "~/server/database/schema/users.schema";
+//import {eq} from "drizzle-orm/expressions";
+import type {UserSchemaType} from "~~/server/database/schema/users.schema";
+import {users} from "~~/server/database/schema/users.schema";
 import {v7} from "uuid";
-import Entity from "~/server/models/util/Entity";
-import {rolesSchema, RolesSchemaType} from "~/server/database/schema/roles.schema";
+import Entity from "~~/server/models/util/Entity";
+import {rolesSchema, RolesSchemaType} from "~~/server/database/schema/roles.schema";
 
 export class User extends Entity implements UserSchemaType {
     username: string;

@@ -2,9 +2,9 @@ import {z} from 'zod'
 import {users} from '@/server/database/schema'
 import {InferInsertModel} from 'drizzle-orm'
 import {v7} from "uuid";
-import User from '~/server/models/User';
-import {defineWrappedResponseHandler} from "~/server/utils/handler";
-import ResponseBody from "~/server/models/util/ResponseBody";
+import User from '~~/server/models/User';
+import {defineWrappedResponseHandler} from "~~/server/utils/handler";
+import ResponseBody from "~~/server/models/util/ResponseBody";
 
 const {sendMail} = useNodeMailer()
 const bodySchema = z.object({

@@ -1,7 +1,7 @@
-import { propertyValues, productProperties } from '~/server/database/schema';
-import { useDrizzle } from '~/server/utils/drizzle';
-import { defineWrappedResponseHandler } from '~/server/utils/handler';
-import ResponseBody from '~/server/models/util/ResponseBody';
+import { propertyValues, productProperties } from '~~/server/database/schema';
+import { useDrizzle } from '~~/server/utils/drizzle';
+import { defineWrappedResponseHandler } from '~~/server/utils/handler';
+import ResponseBody from '~~/server/models/util/ResponseBody';
 import { eq } from 'drizzle-orm';
 import type { H3Event } from 'h3';
 
