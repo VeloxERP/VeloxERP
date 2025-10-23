@@ -6,7 +6,6 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: {
     enabled: true,
-
     timeline: {
       enabled: true
     }
@@ -14,7 +13,9 @@ export default defineNuxtConfig({
   modules: [
     'nuxt-nodemailer',
     '@nuxtjs/i18n',
-    'shadcn-nuxt'
+    'shadcn-nuxt',
+    '@nuxtjs/color-mode',
+      '@pinia/nuxt',
   ],
   colorMode: {
     classSuffix: ''
@@ -34,14 +35,7 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()]
   },
   shadcn: {
-    /**
-     * Prefix for all the imported component
-     */
     prefix: '',
-    /**
-     * Directory that the component lives in.
-     * @default "./components/ui"
-     */
     componentDir: './app/components/ui'
   },
   nodemailer: {
