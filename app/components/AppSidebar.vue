@@ -23,6 +23,7 @@ import {
 } from 'lucide-vue-next'
 
 const props = withDefaults(defineProps<SidebarProps>(), {
+  variant: 'inset',
   collapsible: 'icon',
 })
 // This is sample data.
@@ -211,6 +212,5 @@ const data = {
     <SidebarFooter>
       <NavUser :user="data.user"/>
     </SidebarFooter>
-    <!--    <SidebarRail />-->
   </Sidebar>
 </template>

@@ -8,7 +8,6 @@ export default defineNuxtConfig({
   css: ['~/assets/css/tailwind.css'],
   devtools: {
     enabled: true,
-
     timeline: {
       enabled: true
     }
@@ -32,11 +31,12 @@ export default defineNuxtConfig({
     "@server": fileURLToPath(new URL("./server", import.meta.url)),
   },
   modules: [
-    '@nuxtjs/i18n',
-    '@nuxtjs/color-mode',
     'nuxt-nodemailer',
-    'nuxt-auth-utils',
-    'shadcn-nuxt'
+    '@nuxtjs/i18n',
+    'shadcn-nuxt',
+    '@nuxtjs/color-mode',
+      'nuxt-auth-utils',
+      '@pinia/nuxt',
   ],
   colorMode: {
     classSuffix: ''
@@ -55,14 +55,7 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()]
   },
   shadcn: {
-    /**
-     * Prefix for all the imported component
-     */
     prefix: '',
-    /**
-     * Directory that the component lives in.
-     * @default "./components/ui"
-     */
     componentDir: './app/components/ui'
   },
   nodemailer: {

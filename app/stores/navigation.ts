@@ -1,5 +1,4 @@
-import { defineStore } from 'pinia';
-import type { ModuleNavigation } from '~/types/module';
+import type { ModuleNavigation } from '~~/types/module';
 
 interface NavigationState {
   menuItems: ModuleNavigation[];
