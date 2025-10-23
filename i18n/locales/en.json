@@ -1,0 +1,10 @@
+{
+  "navigation": {
+    "user": {
+      "logout": "Logout",
+      "settings": "Settings",
+      "notifications": "Notifications",
+      "user": "User"
+    }
+  }
+}

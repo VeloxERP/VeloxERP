@@ -1,4 +1,4 @@
-import {drizzle} from "drizzle-orm/mysql2";
+import { drizzle } from "drizzle-orm/mysql2";
 import mysql from "mysql2/promise";
 import * as schema from '../database/schema'
 import {InferInsertModel} from "drizzle-orm";
@@ -13,10 +13,10 @@ const poolConnection = mysql.createPool({
     user: runtimeConfig.database.user,
     password: String(runtimeConfig.database.password),
 });
+const database = drizzle(poolConnection, {schema, mode: "default"});
 
 
 export const tables = schema
-
 export function useDrizzle() {
-    return drizzle(poolConnection, {schema, mode: "default"})
+    return database;
 }

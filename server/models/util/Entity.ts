@@ -9,10 +9,14 @@ export abstract class Entity extends Timestamped {
     }
 
     save() {
-        
+
     }
 
-    abstract load(id: string): Entity;
-    abstract getTableName(): string;
+    load(id: string): this {
+        return this;
+    };
+    getTableName(): string {
+        return "hhhh"
+    };
 }
 export default Entity;

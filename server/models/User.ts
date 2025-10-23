@@ -1,10 +1,9 @@
-// /server/models/User.ts
 //import {eq} from "drizzle-orm/expressions";
-import type {UserSchemaType} from "~~/server/database/schema/users.schema";
-import {users} from "~~/server/database/schema/users.schema";
+import type {UserSchemaType} from "@server/database/schema/users.schema";
+import {users} from "@server/database/schema/users.schema";
 import {v7} from "uuid";
-import Entity from "~~/server/models/util/Entity";
-import {rolesSchema, RolesSchemaType} from "~~/server/database/schema/roles.schema";
+
+import Entity from '@server/models/util/Entity'
 
 export class User extends Entity implements UserSchemaType {
     username: string;
@@ -28,6 +27,16 @@ export class User extends Entity implements UserSchemaType {
         this.role = data.role;
     }
 
+    //TODO: Do
+    static getTableName(): string {
+        return "";
+    }
+
+
+    static load(id: string): Entity {
+        return undefined;
+    }
+
     // //TODO???
     // private constructor(data: {user: UserSchemaType, role: RolesSchemaType }) {
     //     super();
@@ -35,16 +44,33 @@ export class User extends Entity implements UserSchemaType {
 
     static async findById(id: string): Promise<User | null> {
         const result = await useDrizzle().select().from(users).where(eq(users.id, id));
+        result
         return result.length ? new User(result[0]) : null;
     }
 
-    static async findByUsername(username: string): Promise<User | null> {
-        const result = await useDrizzle()
+    static async findByUsername(username: string): Promise<User> {
+        const row = await useDrizzle().query.users.findFirst({
+            where: eq(users.username, username),
+            with: {
+                role: true
+            }
+        })
+        if (!row) {
+            throw createError({ statusCode: 404, statusMessage: 'User nicht gefunden' })
+        }
+        return new User(row);
+        /* await useDrizzle()
             .select()
             .from(users)
             .where(eq(users.username, username))
-            .leftJoin(rolesSchema, eq(users.role, rolesSchema.name));
-        return result.length ? new User(result[0].users) : null;
+            .leftJoin(rolesSchema, eq(users.role, rolesSchema.name))
+            .limit(1);
+        if (result.length > 0) {
+            const ur = result.find
+            return new User(result.at(0)?.users.);
+        }
+        throw new Error("User not found");*/
+        //return result.length ? new User(result[0].users) : throw new Error("User not found");
     }
 
     static async findByEmail(email: string): Promise<User | null> {

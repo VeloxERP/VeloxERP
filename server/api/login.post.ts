@@ -1,6 +1,6 @@
 import {z} from 'zod'
-import {User} from '~~/server/models/User'
-import ResponseBody from "~~/server/models/util/ResponseBody";
+import {User} from '@server/models/User'
+import ResponseBody from "@server/models/util/ResponseBody";
 
 const bodySchema = z.object({
     username: z.string().min(3).max(64),
@@ -12,6 +12,7 @@ export default defineWrappedResponseHandler(async (event) => {
     const {username, password} = await readValidatedBody(event, bodySchema.parse)
 
     console.log(username);
+
     return User.findByUsername(username)
         .then(async (user: User) => {
 

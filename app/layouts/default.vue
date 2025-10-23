@@ -17,8 +17,48 @@ import {
 } from '@/components/ui/sidebar'
 </script>
 <template>
-  <SidebarProvider>
+
+
+  <div id="app" class="relative min-h-svh flex flex-col bg-background">
+    <SidebarProvider>
+      <LayoutSidebar/>
+      <SidebarInset>
+        <main class="inner">
+          <header class="flex h-16 shrink-0 items-center gap-2">
+            <div class="flex items-center gap-2 px-4">
+              <SidebarTrigger class="-ml-1 cursor-pointer" />
+              <Separator orientation="vertical" class="mr-2 h-4" />
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem class="hidden md:block">
+                    <BreadcrumbLink href="#">
+                      Building Your Application
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator class="hidden md:block" />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            </div>
+          </header>
+
+          <div class="flex flex-1 flex-col gap-4 p-4 pt-0">
+            <NuxtPage/>
+          </div>
+        </main>
+
+
+      </SidebarInset>
+    </SidebarProvider>
+  </div>
+
+
+  <!--<SidebarProvider>
+    
     <AppSidebar />
+    
     <SidebarInset>
       <header class="flex h-16 shrink-0 items-center gap-2">
         <div class="flex items-center gap-2 px-4">
@@ -43,7 +83,7 @@ import {
 <!--        <div class="dark:text-white">-->
 <!--          {{useRoute()}}-->
 <!--        </div>-->
-
+<!--
         <slot></slot>
         <!--        <div class="grid auto-rows-min gap-4 md:grid-cols-3">-->
         <!--          <div class="aspect-video rounded-xl bg-muted/50" />-->
@@ -51,7 +91,7 @@ import {
         <!--          <div class="aspect-video rounded-xl bg-muted/50" />-->
         <!--        </div>-->
         <!--        <div class="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />-->
-      </div>
+      <!--</div>
     </SidebarInset>
-  </SidebarProvider>
+  </SidebarProvider>-->
 </template>

@@ -8,6 +8,7 @@ interface ModuleNavigation {
   order?: number;
 }
 
+
 export default defineNuxtPlugin(() => {
   const navigation = {
     addMenuItem(item: ModuleNavigation) {
@@ -21,8 +22,14 @@ export default defineNuxtPlugin(() => {
   };
 
   return {
+    setup() {
+      navigation.addMenuItem({
+        id: 'dashbaord',
+        label: "Dashbaord"
+      })
+    },
     provide: {
       navigation
     }
   };
-}); 
+});

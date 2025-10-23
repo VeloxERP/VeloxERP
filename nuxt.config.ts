@@ -1,9 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { defineNuxtConfig } from 'nuxt/config';
 import tailwindcss from '@tailwindcss/vite';
+import {fileURLToPath} from 'node:url';
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
+  css: ['~/assets/css/tailwind.css'],
   devtools: {
     enabled: true,
 
@@ -11,9 +13,29 @@ export default defineNuxtConfig({
       enabled: true
     }
   },
+  runtimeConfig: {
+    // Private keys are only available on the server
+    database: {
+      host: process.env.DATABASE_HOST,
+      port: process.env.DATABASE_PORT,
+      name: process.env.DATABASE_NAME,
+      user: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD
+    },
+    redis: {
+      host: process.env.REDIS_HOST,
+      port: process.env.REDIS_PORT
+    }
+  },
+  alias: {
+    "@components": fileURLToPath(new URL('./app/components', import.meta.url)),
+    "@server": fileURLToPath(new URL("./server", import.meta.url)),
+  },
   modules: [
-    'nuxt-nodemailer',
     '@nuxtjs/i18n',
+    '@nuxtjs/color-mode',
+    'nuxt-nodemailer',
+    'nuxt-auth-utils',
     'shadcn-nuxt'
   ],
   colorMode: {
@@ -22,14 +44,13 @@ export default defineNuxtConfig({
   nitro: {
     esbuild: {
       options: {
-        target: 'esnext',
+        target: 'ES2022',
       }
     }
   },
-  css: ['~/assets/css/tailwind.css'],
   vite: {
     esbuild: {
-      target: 'esnext',
+      target: 'ES2022',
     },
     plugins: [tailwindcss()]
   },
@@ -54,21 +75,12 @@ export default defineNuxtConfig({
       pass: '',
     },
   },
-  runtimeConfig: {
-    // Private keys are only available on the server
-    database: {
-      host: process.env.DATABASE_HOST,
-      port: process.env.DATABASE_PORT,
-      name: process.env.DATABASE_NAME,
-      user: process.env.DATABASE_USER,
-      password: process.env.DATABASE_PASSWORD
-    },
-    redis: {
-      host: process.env.REDIS_HOST,
-      port: process.env.REDIS_PORT
-    }
-  },
-  // alias:  {
-  //   "#server": "~~/server"
-  // }
+  i18n: {
+    defaultLocale: 'en',
+    strategy: 'no_prefix',
+    locales: [
+      { code: 'en', name: 'English', file: 'en.json' },
+      { code: 'de', name: 'Deutsch', file: 'de.json'}
+    ]
+  }
 })

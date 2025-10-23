@@ -44,16 +44,19 @@ export default defineWrappedResponseHandler(async (event) => {
     let password = generatePassword(12);
 
     try {
-        newUser = await User.create({
-            id: v7(),
+        const uuid = v7();
+        await User.create({
+            id: uuid,
             email: email,
             username: username,
             firstname: firstname,
             lastname: lastname,
             password: await hashPassword(password),
+            role: "user"
         });
-        sendPasswordEmail(email, password);
-        return new ResponseBody(201, undefined, {id: newUser.id});
+        console.log("User " + username + " created with password: " + password);
+        //sendPasswordEmail(email, password);
+        return new ResponseBody(201, undefined, {id: uuid});
     } catch (e) {
         return new ResponseBody(400, "error.user.exists", undefined);
     }

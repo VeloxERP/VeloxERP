@@ -1,6 +1,6 @@
 import Redis from 'ioredis';
 
-const runtimeConfig = useRuntimeConfig();
+const runtimeConfig = useRuntimeConfig()
 
 const redis = new Redis({
     host: runtimeConfig.redis.host,

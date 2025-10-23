@@ -1,7 +1,7 @@
 <script setup lang="ts">
-// definePageMeta({
-//   middleware: ['authenticated'],
-// })
+ definePageMeta({
+   middleware: ['authenticated'],
+ });
 </script>
 <template>
   LOOOL

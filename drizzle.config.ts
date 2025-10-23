@@ -1,6 +1,5 @@
 import { defineConfig } from 'drizzle-kit'
 
-console.log(typeof process.env.NUXT_DATABASE_PASSWORD)
 export default defineConfig({
     dialect: 'mysql',
     schema: './server/database/schema',

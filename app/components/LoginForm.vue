@@ -1,9 +1,9 @@
 <template>
-  <div class="flex flex-col gap-6">
-    <Card class="overflow-hidden">
-      <CardContent class="grid p-0 md:grid-cols-2">
-        <form class="p-6 md:p-8" @submit.prevent="login">
-          <div class="flex flex-col gap-6">
+  <div class="flex flex-col gap-6 h-full">
+    <Card class="overflow-hidden h-full">
+      <CardContent class="grid p-0 md:grid-cols-2 h-full">
+        <form class="p-6 md:p-8 flex items-center" @submit.prevent="login">
+          <div class="flex flex-col gap-6 w-full">
             <div class="flex flex-col items-center text-center">
               <h1 class="text-2xl font-bold">
                 Welcome back
@@ -86,7 +86,7 @@
             </div>
           </div>
         </form>
-        <div class="relative hidden bg-muted md:block">
+        <div class="relative hidden bg-muted md:block h-full">
           <img
               :src="teaser"
               alt="Image"
