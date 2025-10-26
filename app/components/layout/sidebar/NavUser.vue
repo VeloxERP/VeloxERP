@@ -8,14 +8,14 @@
               class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
           >
             <Avatar class="h-8 w-8 rounded-lg">
-              <AvatarImage :src="user.avatar" :alt="user.username" />
+              <AvatarImage v-if="avatarSrc" :src="avatarSrc" :alt="displayName" />
               <AvatarFallback class="rounded-lg">
-                {{ user.firstname.charAt(0) }}
+                {{ initials }}
               </AvatarFallback>
             </Avatar>
             <div class="grid flex-1 text-left text-sm leading-tight">
-              <span class="truncate font-semibold">{{ user.firstname }} {{ user.lastname }}</span>
-              <span class="truncate text-xs">{{ user.email }}</span>
+              <span class="truncate font-semibold">{{ displayName }}</span>
+              <span class="truncate text-xs">{{ secondaryText }}</span>
             </div>
             <ChevronsUpDown class="ml-auto size-4" />
           </SidebarMenuButton>
@@ -29,14 +29,14 @@
           <DropdownMenuLabel class="p-0 font-normal">
             <div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
               <Avatar class="h-8 w-8 rounded-lg">
-                <AvatarImage :src="user.avatar" :alt="user.username" />
+                <AvatarImage v-if="avatarSrc" :src="avatarSrc" :alt="displayName" />
                 <AvatarFallback class="rounded-lg">
-                  {{ user.firstname.charAt(0) }}
+                  {{ initials }}
                 </AvatarFallback>
               </Avatar>
               <div class="grid flex-1 text-left text-sm leading-tight">
-                <span class="truncate font-semibold">{{ user.name }}</span>
-                <span class="truncate text-xs">{{ user.email }}</span>
+                <span class="truncate font-semibold">{{ displayName }}</span>
+                <span class="truncate text-xs">{{ secondaryText }}</span>
               </div>
             </div>
           </DropdownMenuLabel>
@@ -57,7 +57,7 @@
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem  class="text-red-400 hover:text-red-500">
+          <DropdownMenuItem class="text-red-400 hover:text-red-500" @click="handleSignOut">
             <LogOut />
             {{t('navigation.user.logout')}}
           </DropdownMenuItem>
@@ -72,9 +72,7 @@ import {
   BadgeCheck,
   Bell,
   ChevronsUpDown,
-  CreditCard,
   LogOut,
-  Sparkles,
   Cog
 } from 'lucide-vue-next'
 import {
@@ -98,7 +96,37 @@ import {
   useSidebar,
 } from '@components/ui/sidebar'
 
-const { user }: {user:ClientUser} = useUserSession()
+import { authClient } from "~/lib/auth-client";
+
+const session = authClient.useSession();
+
+const user = computed(() => session.value?.user ?? null);
+
+const displayName = computed(() =>
+  user.value?.name || user.value?.username || user.value?.email || "User"
+);
+
+const secondaryText = computed(() =>
+  user.value?.email || user.value?.username || ""
+);
+
+const initials = computed(() => {
+  const source = displayName.value.trim();
+  return source ? source.charAt(0).toUpperCase() : "?";
+});
+
+const avatarSrc = computed(() => user.value?.image || undefined);
+
+async function handleSignOut() {
+  const { error } = await authClient.signOut();
+  if (error) {
+    console.error("Failed to sign out", error);
+    return;
+  }
+
+  await navigateTo("/login");
+}
+
 const { isMobile } = useSidebar()
 const { t } = useI18n()
 </script>

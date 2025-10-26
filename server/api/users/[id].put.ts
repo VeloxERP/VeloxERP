@@ -1,9 +1,8 @@
 import { z } from 'zod'
-import { users } from '@server/database/schema'
-import { eq } from 'drizzle-orm'
 import { defineWrappedResponseHandler } from '@server/utils/handler'
 import ResponseBody from '@server/models/util/ResponseBody'
-import { useDrizzle } from '@server/utils/drizzle'
+import { auth } from "~~/server/utils/auth";
+import { fromNodeHeaders } from "better-auth/integrations/node";
 
 const updateUserSchema = z.object({
   username: z.string().min(3).max(64).optional(),
@@ -18,31 +17,34 @@ export default defineWrappedResponseHandler(async (event) => {
   try {
     const id = getRouterParam(event, 'id')
     const body = await readValidatedBody(event, updateUserSchema.parse)
-    const db = useDrizzle()
-    
-    // Check if user exists
-    const existingUser = await db
-      .select({ id: users.id })
-      .from(users)
-      .where(eq(users.id, id))
-      .limit(1)
-
-    if (!existingUser.length) {
-      return new ResponseBody(404, 'error.user.not_found', undefined)
+    const updatePayload: Record<string, unknown> = {
+      ...(body.email ? { email: body.email } : {}),
+      ...(body.username ? { username: body.username } : {}),
+      ...(body.firstname ? { firstName: body.firstname } : {}),
+      ...(body.lastname ? { lastName: body.lastname } : {}),
+      ...(body.role ? { role: body.role } : {}),
+      ...(body.dateOfBirth ? { dateOfBirth: body.dateOfBirth } : {}),
     }
 
-    // Update user
-    await db
-      .update(users)
-      .set({
-        ...body,
-        updatedAt: new Date(),
-      })
-      .where(eq(users.id, id))
+    if (!Object.keys(updatePayload).length) {
+      return new ResponseBody(400, 'error.user.update.empty', undefined)
+    }
+
+    const { error } = await auth.api.adminUpdateUser({
+      headers: fromNodeHeaders(event.node.req.headers),
+      body: {
+        userId: id,
+        data: updatePayload,
+      },
+    })
+
+    if (error) {
+      throw error
+    }
 
     return new ResponseBody(200, 'User updated successfully', undefined)
   } catch (error) {
     console.error('Error updating user:', error)
     return new ResponseBody(500, 'error.user.update', undefined)
   }
-}) 
+})

@@ -38,14 +38,15 @@
                      required/>
             </div>
             <div>
-              <div class="pb-2" v-if="error">
+              <div class="pb-2" v-if="errorMessage">
                 <small class="text-sm font-medium leading-none text-red-600">
-                  Username or Password is wrong
+                  {{ errorMessage }}
                 </small>
               </div>
 
-              <Button type="submit" class="w-full">
-                Login
+              <Button type="submit" class="w-full" :disabled="isSubmitting">
+                <span v-if="isSubmitting">Signing in…</span>
+                <span v-else>Login</span>
               </Button>
             </div>
 
@@ -104,33 +105,44 @@
 </template>
 
 <script setup lang="ts">
-import {Button} from "@/components/ui/button";
-import {Card, CardContent} from "@/components/ui/card";
-import {Input} from '@/components/ui/input'
-import {Label} from '@/components/ui/label'
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { authClient } from "~/lib/auth-client";
 
 // Assets
-import teaser from '@/assets/images/pages/login/teaser.jpg'
+import teaser from "@/assets/images/pages/login/teaser.jpg";
 
-// Icons
-
-let error = ref(false);
-const {loggedIn, user, fetch: refreshSession} = useUserSession()
 const credentials = reactive({
-  username: '',
-  password: '',
-})
+  username: "",
+  password: "",
+});
+
+const errorMessage = ref<string | null>(null);
+const isSubmitting = ref(false);
 
 async function login() {
-  $fetch('/api/login', {
-    method: 'POST',
-    body: credentials
-  })
-      .then(async () => {
-        // Refresh the session on client-side and redirect to the home page
-        await refreshSession()
-        await navigateTo('/')
-      })
-      .catch(() => error.value = true)
+  errorMessage.value = null;
+  isSubmitting.value = true;
+
+  const { data, error } = await authClient.signIn.username({
+    username: credentials.username,
+    password: credentials.password,
+  });
+
+  isSubmitting.value = false;
+
+  if (error) {
+    errorMessage.value = error.message ?? "Username or password is incorrect.";
+    return;
+  }
+
+  if (data?.url && data?.redirect) {
+    window.location.href = data.url;
+    return;
+  }
+
+  await navigateTo("/");
 }
 </script>

@@ -1,6 +1,7 @@
-import type {EventHandler, EventHandlerRequest} from 'h3'
+import type { EventHandler, EventHandlerRequest } from 'h3'
 import ResponseBody from "~~/server/models/util/ResponseBody";
 import { useRedis } from './redis';
+import { requireAuthSession, type AuthSession } from "~~/server/utils/auth";
 
 interface HandlerOptions {
     validateBody?: (body: any) => boolean;
@@ -14,6 +15,7 @@ interface HandlerOptions {
         max: number;
         windowMs: number;
     };
+    requireAuth?: boolean;
 }
 
 interface ApiError {
@@ -35,12 +37,21 @@ async function addRateLimitRequest(key: string, timestamp: number): Promise<void
     await redis.expire(key, 60); // 60 seconds expiration
 }
 
+declare module "h3" {
+    interface H3EventContext {
+        authSession?: AuthSession | null;
+    }
+}
+
 export const defineWrappedResponseHandler = <T extends EventHandlerRequest, D>(
     handler: EventHandler<T, D>,
     options?: HandlerOptions
 ): EventHandler<T, D> =>
     defineEventHandler<T>(async event => {
         try {
+            if (options?.requireAuth ?? true) {
+                event.context.authSession = await requireAuthSession(event);
+            }
             // Log request if enabled
             if (options?.logRequest) {
                 const methodsWithBody = ['POST', 'PUT', 'PATCH'];
