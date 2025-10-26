@@ -1,9 +1,9 @@
-export default defineNuxtRouteMiddleware(() => {
-    console.debug('l');
-    const { loggedIn } = useUserSession()
+import { authClient } from "~/lib/auth-client";
 
-    // redirect the user to the login screen if they're not authenticated
-    if (!loggedIn.value) {
-        return navigateTo('/login')
+export default defineNuxtRouteMiddleware(async () => {
+    const { data: session } = await authClient.useSession(useFetch);
+
+    if (!session.value) {
+        return navigateTo("/login");
     }
 });

@@ -35,8 +35,7 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     'shadcn-nuxt',
     '@nuxtjs/color-mode',
-      'nuxt-auth-utils',
-      '@pinia/nuxt',
+    '@pinia/nuxt',
   ],
   colorMode: {
     classSuffix: ''

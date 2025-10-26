@@ -1,5 +1,5 @@
-import { auth } from "~~/server/utils/auth"; // path to your auth file
+import { authHandler } from "~~/server/utils/auth";
 
-export default defineEventHandler((event) => {
-    return auth.handler(toWebRequest(event));
+export default defineEventHandler(async (event) => {
+  return authHandler(event.node.req, event.node.res);
 });

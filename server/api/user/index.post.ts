@@ -1,10 +1,9 @@
 import {z} from 'zod'
-import {users} from '@/server/database/schema'
-import {InferInsertModel} from 'drizzle-orm'
 import {v7} from "uuid";
-import User from '~~/server/models/User';
 import {defineWrappedResponseHandler} from "~~/server/utils/handler";
 import ResponseBody from "~~/server/models/util/ResponseBody";
+import { auth } from "~~/server/utils/auth";
+import { fromNodeHeaders } from "better-auth/integrations/node";
 
 const {sendMail} = useNodeMailer()
 const bodySchema = z.object({
@@ -13,8 +12,6 @@ const bodySchema = z.object({
     firstname: z.string().max(64),
     lastname: z.string().max(64),
 })
-
-type NewUser = InferInsertModel<typeof users>
 
 // Use a default parameter and const instead of var
 const generatePassword = (length = 8): string => {
@@ -39,25 +36,35 @@ export default defineWrappedResponseHandler(async (event) => {
     // Validate and destructure the request body using Zod
     const {email, username, firstname, lastname} = await readValidatedBody(event, bodySchema.parse)
 
-    console.log(await hashPassword(generatePassword(12)));
-    let newUser;
-    let password = generatePassword(12);
+    const password = generatePassword(12);
 
     try {
-        const uuid = v7();
-        await User.create({
-            id: uuid,
-            email: email,
-            username: username,
-            firstname: firstname,
-            lastname: lastname,
-            password: await hashPassword(password),
-            role: "user"
+        const { data, error } = await auth.api.createUser({
+            headers: fromNodeHeaders(event.node.req.headers),
+            body: {
+                email,
+                password,
+                name: `${firstname} ${lastname}`.trim(),
+                data: {
+                    username,
+                    firstName: firstname,
+                    lastName: lastname,
+                    role: "user",
+                    invitedBy: event.context.authSession?.user.id ?? null,
+                    temporaryPassword: true,
+                },
+            },
         });
-        console.log("User " + username + " created with password: " + password);
+
+        if (error) {
+            throw error;
+        }
+
+        console.log(`User ${username} created with password: ${password}`);
         //sendPasswordEmail(email, password);
-        return new ResponseBody(201, undefined, {id: uuid});
+        return new ResponseBody(201, undefined, {id: data?.user.id ?? v7()});
     } catch (e) {
+        console.error("Failed to create user", e);
         return new ResponseBody(400, "error.user.exists", undefined);
     }
 })
