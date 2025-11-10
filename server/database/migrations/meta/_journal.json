@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1741871081508,
-      "tag": "0000_watery_expediter",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1742063838663,
-      "tag": "0001_flippant_speed",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1742072881679,
-      "tag": "0003_dapper_madame_masque",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "5",
-      "when": 1742488802096,
-      "tag": "0005_safe_diamondback",
+      "when": 1762810544964,
+      "tag": "0000_familiar_mastermind",
       "breakpoints": true
     }
   ]

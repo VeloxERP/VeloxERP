@@ -1,1 +1,0 @@
-ALTER TABLE `users` MODIFY COLUMN `password` char(134) NOT NULL;
