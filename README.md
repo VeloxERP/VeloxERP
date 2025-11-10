@@ -1,5 +1,6 @@
 # VeloxERP - Nuxt-Based ERP System
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 
 VeloxERP is a modern Enterprise Resource Planning system built with Nuxt.js. It’s designed to streamline business processes and support data-driven decision-making within internal business environments. Currently in active development and working towards our first release, VeloxERP brings together key operational areas including logistics (merchandise management, stock overview, warehouse management), finances, orders and inquiries, and a complete POS system.
 
