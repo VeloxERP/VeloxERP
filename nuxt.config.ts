@@ -36,6 +36,7 @@ export default defineNuxtConfig({
     'shadcn-nuxt',
     '@nuxtjs/color-mode',
     '@pinia/nuxt',
+    '@nuxt/eslint'
   ],
   colorMode: {
     classSuffix: ''
@@ -74,5 +75,10 @@ export default defineNuxtConfig({
       { code: 'en', name: 'English', file: 'en.json' },
       { code: 'de', name: 'Deutsch', file: 'de.json'}
     ]
+  },
+  eslint: {
+    config: {
+      standalone: false
+    }
   }
 })
