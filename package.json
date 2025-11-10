@@ -16,7 +16,7 @@
     "console": "ts-node --esm -P scripts/tsconfig.json -r tsconfig-paths/register scripts/console.ts"
   },
   "dependencies": {
-    "@nuxtjs/i18n": "10.0.0",
+    "@nuxtjs/i18n": "10.2.0",
     "@tailwindcss/vite": "^4.1.11",
     "@tanstack/vue-table": "^8.21.3",
     "@vueuse/core": "^13.5.0",
@@ -31,7 +31,7 @@
     "mysql2": "^3.14.2",
     "nuxt": "^4.0.1",
     "reka-ui": "^2.3.2",
-    "shadcn-nuxt": "2.2.0",
+    "shadcn-nuxt": "2.3.2",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.11",
     "tailwindcss-animate": "^1.0.7",
@@ -44,7 +44,6 @@
   "packageManager": "pnpm@10.19.1-oidc-test.2+sha512.b5543daf8ffc33a0ba7fa34cfeca2f91b991406f1c2f5f58b2d109de2f07d0346fdf5ac22c45ecb7542e116b12da1641022e95f562fc06d547e933029d06f7d3",
   "devDependencies": {
     "@nuxtjs/color-mode": "^3.5.2",
-    "@nuxtjs/i18n": "10.1.1",
     "@nuxtjs/tailwindcss": "^6.14.0",
     "@pinia/nuxt": "^0.11.2",
     "@types/node": "^24.9.1",
@@ -52,7 +51,6 @@
     "drizzle-kit": "^0.31.4",
     "nodemailer": "^7.0.5",
     "nuxt-nodemailer": "^1.1.2",
-    "shadcn-nuxt": "2.3.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "yargs": "^18.0.0"
