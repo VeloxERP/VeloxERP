@@ -1,13 +1,13 @@
 import { betterAuth, type InferSession, type InferUser } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { fromNodeHeaders, toNodeHandler } from "better-auth/integrations/node";
-import { admin, organization, twoFactor, username } from "better-auth/plugins";
+import { admin, organization, twoFactor, username, lastLoginMethod  } from "better-auth/plugins";
 import { passkey } from "better-auth/plugins/passkey";
 import type { H3Event } from "h3";
 import { createError } from "h3";
 
 import { ac } from "~~/shared/lib/permissions";
 import { useDrizzle } from "~~/server/utils/drizzle";
+import {fromNodeHeaders, toNodeHandler} from "better-auth/node";
 
 const database = useDrizzle();
 const fullSchema = (database as typeof database & { _: { fullSchema?: Record<string, any> } })._?.fullSchema;
@@ -45,6 +45,7 @@ export const auth = betterAuth({
     twoFactor(),
     passkey(),
     admin(),
+    lastLoginMethod(),
     organization({
       teams: { enabled: true },
       allowUserToCreateOrganization: false,
@@ -66,14 +67,14 @@ export async function getAuthSession(event: H3Event) {
     headers: fromNodeHeaders(event.node.req.headers),
   });
 
-  if (response.error) {
+  if (!response?.session) {
     throw createError({
-      statusCode: response.error.status ?? 401,
-      statusMessage: response.error.message ?? "Unable to determine session",
+      statusCode: 401,
+      statusMessage: "Unable to determine session",
     });
   }
 
-  return response.data ?? null;
+  return response.session ?? null;
 }
 
 export async function requireAuthSession(event: H3Event) {

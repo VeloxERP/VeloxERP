@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { defineWrappedResponseHandler } from '@server/utils/handler'
 import ResponseBody from '@server/models/util/ResponseBody'
 import { auth } from "~~/server/utils/auth";
-import { fromNodeHeaders } from "better-auth/integrations/node";
+import { fromNodeHeaders } from "better-auth/node";
 
 const updateUserSchema = z.object({
   username: z.string().min(3).max(64).optional(),

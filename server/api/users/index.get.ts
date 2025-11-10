@@ -1,7 +1,7 @@
 import { defineWrappedResponseHandler } from '@server/utils/handler'
 import ResponseBody from '@server/models/util/ResponseBody'
 import { auth } from "~~/server/utils/auth";
-import { fromNodeHeaders } from "better-auth/integrations/node";
+import { fromNodeHeaders } from "better-auth/node";
 
 export default defineWrappedResponseHandler(async (event) => {
   try {
