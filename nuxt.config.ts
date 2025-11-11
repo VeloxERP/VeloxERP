@@ -27,6 +27,10 @@ export default defineNuxtConfig({
       host: process.env.REDIS_HOST,
       port: process.env.REDIS_PORT,
     },
+
+    public: {
+      appName: process.env.APPLICATION_NAME,
+    }
   },
   alias: {
     '@components': fileURLToPath(new URL('./app/components', import.meta.url)),

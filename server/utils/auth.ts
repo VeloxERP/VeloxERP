@@ -23,20 +23,11 @@ export const auth = betterAuth({
   },
   user: {
     additionalFields: {
-      username: {
-        type: "string",
-        sortable: true,
-        unique: true,
-      },
       firstName: {
         type: "string",
       },
       lastName: {
         type: "string",
-      },
-      role: {
-        type: "string",
-        defaultValue: "user",
       },
     },
   },
@@ -59,10 +50,10 @@ export const auth = betterAuth({
 
 export const authHandler = toNodeHandler(auth);
 
-export type AuthSession = InferSession<typeof auth>;
+export type Session = typeof auth.$Infer.Session.session
 export type AuthUser = InferUser<typeof auth>;
 
-export async function getAuthSession(event: H3Event) {
+export async function getSession(event: H3Event) {
   const response = await auth.api.getSession({
     headers: fromNodeHeaders(event.node.req.headers),
   });
@@ -70,15 +61,14 @@ export async function getAuthSession(event: H3Event) {
   if (!response?.session) {
     throw createError({
       statusCode: 401,
-      statusMessage: "Unable to determine session",
+      statusMessage: "Unauthenticated",
     });
   }
-
   return response.session ?? null;
 }
 
-export async function requireAuthSession(event: H3Event) {
-  const session = await getAuthSession(event);
+export async function requireSession(event: H3Event) {
+  const session = await getSession(event);
 
   if (!session) {
     throw createError({ statusCode: 401, statusMessage: "Unauthenticated" });
