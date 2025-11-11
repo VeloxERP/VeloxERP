@@ -1,7 +1,7 @@
-name: "Feature request"
-description: "Suggest a new feature for VeloxERP"
-title: "[Feature Request]: "
-labels: [ "new" ]
+name: Feature request
+description: Suggest a new feature for VeloxERP
+title: '[Feature Request]: '
+labels: [new]
 type: Feature
 body:
   - type: markdown

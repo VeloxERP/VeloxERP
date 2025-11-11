@@ -1,7 +1,7 @@
-name: "🐞 Bug Report"
-description: "File a bug report."
-title: "[Bug]: "
-labels: [ "new" ]
+name: 🐞 Bug Report
+description: File a bug report.
+title: '[Bug]: '
+labels: [new]
 type: Bug
 body:
   - type: markdown

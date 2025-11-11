@@ -1,6 +1,7 @@
 <script setup lang="ts">
-//TODO why not look like https://www.shadcn-vue.com/blocks/sidebar.html#Sidebar08
+// TODO why not look like https://www.shadcn-vue.com/blocks/sidebar.html#Sidebar08
 </script>
+
 <template>
   <div class="flex flex-1 flex-col gap-4 p-4 pt-0">
     <div class="grid auto-rows-min gap-4 md:grid-cols-3">

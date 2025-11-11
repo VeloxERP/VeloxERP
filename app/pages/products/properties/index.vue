@@ -136,11 +136,11 @@ import type {
   NewProductProperty,
   ProductProperty,
   PropertyValue
-} from '~/server/database/schema/product-properties.schema';
+} from '~~/server/database/schema/product-properties.schema';
 import type {ColumnDef} from '@tanstack/vue-table'
 import {useRouter} from 'vue-router'
 import {useLazyFetch} from '#imports'
-import type {ApiResponse} from '~/types/ApiResponse'
+import type {ApiResponse} from '@server/types/ApiResponse'
 
 const router = useRouter()
 

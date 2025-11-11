@@ -44,7 +44,7 @@ VeloxERP leverages Nuxt.js for server-side rendering and a smooth user experienc
 - **Reverse Proxy (Production):** A reverse proxy is recommended to point to the Nuxt application for production environments.
 
 ### Installation Steps
-1. **Clone the Repository:**  
+1. **Clone the Repository:**
    Run the following commands:
    ```
    git clone https://github.com/VeloxERP/VeloxERP.git
@@ -54,7 +54,7 @@ VeloxERP leverages Nuxt.js for server-side rendering and a smooth user experienc
    ```
    pnpm install
    ```
-3. **Database Setup:**  
+3. **Database Setup:**
    Configure your MySQL database and update the connection settings in the configuration files as needed.
 
 ## Configuration

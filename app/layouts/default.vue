@@ -1,12 +1,11 @@
 <script setup lang="ts">
-//TODO why not look like https://www.shadcn-vue.com/blocks/sidebar.html#Sidebar08
+// TODO why not look like https://www.shadcn-vue.com/blocks/sidebar.html#Sidebar08
 </script>
+
 <template>
-
-
   <div id="app" class="relative min-h-svh flex flex-col bg-background">
     <SidebarProvider>
-      <LayoutSidebar/>
+      <LayoutSidebar />
       <SidebarInset>
         <main class="inner">
           <header class="flex h-16 shrink-0 items-center gap-2">
@@ -30,17 +29,14 @@
           </header>
 
           <div class="flex flex-1 flex-col gap-4 p-4 pt-0">
-            <NuxtPage/>
+            <NuxtPage />
           </div>
         </main>
-
-
       </SidebarInset>
     </SidebarProvider>
   </div>
 
-
-  <!--<SidebarProvider>
+  <!-- <SidebarProvider>
 
     <AppSidebar />
 
@@ -65,18 +61,18 @@
         </div>
       </header>
       <div class="flex flex-1 flex-col gap-4 p-4 pt-0">
-<!--        <div class="dark:text-white">-->
-<!--          {{useRoute()}}-->
-<!--        </div>-->
+<!--        <div class="dark:text-white"> -->
+<!--          {{useRoute()}} -->
+<!--        </div> -->
 <!--
         <slot></slot>
-        <!--        <div class="grid auto-rows-min gap-4 md:grid-cols-3">-->
-        <!--          <div class="aspect-video rounded-xl bg-muted/50" />-->
-        <!--          <div class="aspect-video rounded-xl bg-muted/50" />-->
-        <!--          <div class="aspect-video rounded-xl bg-muted/50" />-->
-        <!--        </div>-->
-        <!--        <div class="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />-->
-      <!--</div>
+        <!--        <div class="grid auto-rows-min gap-4 md:grid-cols-3"> -->
+  <!--          <div class="aspect-video rounded-xl bg-muted/50" /> -->
+  <!--          <div class="aspect-video rounded-xl bg-muted/50" /> -->
+  <!--          <div class="aspect-video rounded-xl bg-muted/50" /> -->
+  <!--        </div> -->
+  <!--        <div class="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" /> -->
+  <!-- </div>
     </SidebarInset>
-  </SidebarProvider>-->
+  </SidebarProvider> -->
 </template>

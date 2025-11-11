@@ -1,7 +1,7 @@
-name: "Task"
+name: Task
 description: "Use this template for tasks, or issues that don't fall under feature requests or bug reports."
-title: "[Task]: "
-labels: [ "new" ]
+title: '[Task]: '
+labels: [new]
 type: Task
 body:
   - type: markdown

@@ -1,7 +1,8 @@
 {
   "name": "nuxt-app",
-  "private": true,
   "type": "module",
+  "private": true,
+  "packageManager": "pnpm@10.19.1-oidc-test.2+sha512.b5543daf8ffc33a0ba7fa34cfeca2f91b991406f1c2f5f58b2d109de2f07d0346fdf5ac22c45ecb7542e116b12da1641022e95f562fc06d547e933029d06f7d3",
   "bin": {
     "console": "scripts/console.ts"
   },
@@ -43,20 +44,19 @@
     "vue-router": "^4.5.1",
     "zod": "^4.0.5"
   },
-  "packageManager": "pnpm@10.19.1-oidc-test.2+sha512.b5543daf8ffc33a0ba7fa34cfeca2f91b991406f1c2f5f58b2d109de2f07d0346fdf5ac22c45ecb7542e116b12da1641022e95f562fc06d547e933029d06f7d3",
   "devDependencies": {
+    "@antfu/eslint-config": "^6.2.0",
     "@nuxtjs/color-mode": "^3.5.2",
     "@nuxtjs/tailwindcss": "^6.14.0",
     "@pinia/nuxt": "^0.11.2",
     "@types/node": "^24.9.1",
     "@types/uuid": "^10.0.0",
     "drizzle-kit": "^0.31.4",
+    "eslint": "^9.38.0",
     "nodemailer": "^7.0.5",
     "nuxt-nodemailer": "^1.1.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "yargs": "^18.0.0",
-    "@antfu/eslint-config": "^6.2.0",
-    "eslint": "^9.38.0"
+    "yargs": "^18.0.0"
   }
 }

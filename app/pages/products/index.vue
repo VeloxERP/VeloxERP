@@ -1,7 +1,110 @@
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
+import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Textarea } from '@/components/ui/textarea'
+
+const columns = [
+  { key: 'name', label: 'Name' },
+  { key: 'sku', label: 'SKU' },
+  { key: 'price', label: 'Price' },
+  { key: 'cost', label: 'Cost' },
+  { key: 'quantity', label: 'Quantity' },
+  { key: 'actions', label: 'Actions' },
+]
+
+const products = ref([])
+const categories = ref([])
+const loading = ref(false)
+const showAddProductDialog = ref(false)
+
+const form = ref({
+  name: '',
+  description: '',
+  sku: '',
+  categoryId: '',
+  price: 0,
+  cost: 0,
+  quantity: 0,
+})
+
+async function fetchProducts() {
+  loading.value = true
+  try {
+    const response = await fetch('/api/products')
+    products.value = await response.json()
+  }
+  catch (error) {
+    console.error('Error fetching products:', error)
+  }
+  finally {
+    loading.value = false
+  }
+}
+
+async function fetchCategories() {
+  try {
+    const response = await fetch('/api/product-categories')
+    categories.value = await response.json()
+  }
+  catch (error) {
+    console.error('Error fetching categories:', error)
+  }
+}
+
+async function handleSubmit() {
+  try {
+    const response = await fetch('/api/products', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(form.value),
+    })
+
+    if (response.ok) {
+      showAddProductDialog.value = false
+      form.value = {
+        name: '',
+        description: '',
+        sku: '',
+        categoryId: '',
+        price: 0,
+        cost: 0,
+        quantity: 0,
+      }
+      await fetchProducts()
+    }
+  }
+  catch (error) {
+    console.error('Error adding product:', error)
+  }
+}
+
+function editProduct(product) {
+  // TODO: Implement edit functionality
+}
+
+async function deleteProduct(product) {
+  // TODO: Implement delete functionality
+}
+
+onMounted(() => {
+  fetchProducts()
+  fetchCategories()
+})
+</script>
+
 <template>
   <div class="container mx-auto py-6">
     <div class="flex justify-between items-center mb-6">
-      <h1 class="text-2xl font-bold">Products</h1>
+      <h1 class="text-2xl font-bold">
+        Products
+      </h1>
       <Button @click="showAddProductDialog = true">
         Add Product
       </Button>
@@ -11,7 +114,9 @@
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead v-for="column in columns" :key="column.key">{{ column.label }}</TableHead>
+            <TableHead v-for="column in columns" :key="column.key">
+              {{ column.label }}
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -54,7 +159,7 @@
             Add a new product to your inventory.
           </DialogDescription>
         </DialogHeader>
-        <form @submit.prevent="handleSubmit" class="space-y-4">
+        <form class="space-y-4" @submit.prevent="handleSubmit">
           <div class="space-y-2">
             <Label for="name">Name</Label>
             <Input id="name" v-model="form.name" required />
@@ -82,121 +187,26 @@
           </div>
           <div class="space-y-2">
             <Label for="price">Price</Label>
-            <Input id="price" type="number" step="0.01" v-model="form.price" required />
+            <Input id="price" v-model="form.price" type="number" step="0.01" required />
           </div>
           <div class="space-y-2">
             <Label for="cost">Cost</Label>
-            <Input id="cost" type="number" step="0.01" v-model="form.cost" />
+            <Input id="cost" v-model="form.cost" type="number" step="0.01" />
           </div>
           <div class="space-y-2">
             <Label for="quantity">Quantity</Label>
-            <Input id="quantity" type="number" v-model="form.quantity" required />
+            <Input id="quantity" v-model="form.quantity" type="number" required />
           </div>
           <div class="flex justify-end space-x-2">
             <Button type="button" variant="outline" @click="showAddProductDialog = false">
               Cancel
             </Button>
-            <Button type="submit">Add Product</Button>
+            <Button type="submit">
+              Add Product
+            </Button>
           </div>
         </form>
       </DialogContent>
     </Dialog>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { Button } from '@/components/ui/button';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-
-const columns = [
-  { key: 'name', label: 'Name' },
-  { key: 'sku', label: 'SKU' },
-  { key: 'price', label: 'Price' },
-  { key: 'cost', label: 'Cost' },
-  { key: 'quantity', label: 'Quantity' },
-  { key: 'actions', label: 'Actions' },
-];
-
-const products = ref([]);
-const categories = ref([]);
-const loading = ref(false);
-const showAddProductDialog = ref(false);
-
-const form = ref({
-  name: '',
-  description: '',
-  sku: '',
-  categoryId: '',
-  price: 0,
-  cost: 0,
-  quantity: 0,
-});
-
-const fetchProducts = async () => {
-  loading.value = true;
-  try {
-    const response = await fetch('/api/products');
-    products.value = await response.json();
-  } catch (error) {
-    console.error('Error fetching products:', error);
-  } finally {
-    loading.value = false;
-  }
-};
-
-const fetchCategories = async () => {
-  try {
-    const response = await fetch('/api/product-categories');
-    categories.value = await response.json();
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-  }
-};
-
-const handleSubmit = async () => {
-  try {
-    const response = await fetch('/api/products', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(form.value),
-    });
-    
-    if (response.ok) {
-      showAddProductDialog.value = false;
-      form.value = {
-        name: '',
-        description: '',
-        sku: '',
-        categoryId: '',
-        price: 0,
-        cost: 0,
-        quantity: 0,
-      };
-      await fetchProducts();
-    }
-  } catch (error) {
-    console.error('Error adding product:', error);
-  }
-};
-
-const editProduct = (product) => {
-  // TODO: Implement edit functionality
-};
-
-const deleteProduct = async (product) => {
-  // TODO: Implement delete functionality
-};
-
-onMounted(() => {
-  fetchProducts();
-  fetchCategories();
-});
-</script> 

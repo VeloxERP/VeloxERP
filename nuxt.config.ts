@@ -1,7 +1,9 @@
+import process from 'node:process'
+import { fileURLToPath } from 'node:url'
+import tailwindcss from '@tailwindcss/vite'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { defineNuxtConfig } from 'nuxt/config';
-import tailwindcss from '@tailwindcss/vite';
-import {fileURLToPath} from 'node:url';
+import { defineNuxtConfig } from 'nuxt/config'
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
@@ -9,8 +11,8 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true,
     timeline: {
-      enabled: true
-    }
+      enabled: true,
+    },
   },
   runtimeConfig: {
     // Private keys are only available on the server
@@ -19,16 +21,16 @@ export default defineNuxtConfig({
       port: process.env.DATABASE_PORT,
       name: process.env.DATABASE_NAME,
       user: process.env.DATABASE_USER,
-      password: process.env.DATABASE_PASSWORD
+      password: process.env.DATABASE_PASSWORD,
     },
     redis: {
       host: process.env.REDIS_HOST,
-      port: process.env.REDIS_PORT
-    }
+      port: process.env.REDIS_PORT,
+    },
   },
   alias: {
-    "@components": fileURLToPath(new URL('./app/components', import.meta.url)),
-    "@server": fileURLToPath(new URL("./server", import.meta.url)),
+    '@components': fileURLToPath(new URL('./app/components', import.meta.url)),
+    '@server': fileURLToPath(new URL('./server', import.meta.url)),
   },
   modules: [
     'nuxt-nodemailer',
@@ -36,27 +38,27 @@ export default defineNuxtConfig({
     'shadcn-nuxt',
     '@nuxtjs/color-mode',
     '@pinia/nuxt',
-    '@nuxt/eslint'
+    '@nuxt/eslint',
   ],
   colorMode: {
-    classSuffix: ''
+    classSuffix: '',
   },
   nitro: {
     esbuild: {
       options: {
         target: 'ES2022',
-      }
-    }
+      },
+    },
   },
   vite: {
     esbuild: {
       target: 'ES2022',
     },
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
   },
   shadcn: {
     prefix: '',
-    componentDir: './app/components/ui'
+    componentDir: './app/components/ui',
   },
   nodemailer: {
     from: '"John Doe" <john@doe.com>',
@@ -73,12 +75,12 @@ export default defineNuxtConfig({
     strategy: 'no_prefix',
     locales: [
       { code: 'en', name: 'English', file: 'en.json' },
-      { code: 'de', name: 'Deutsch', file: 'de.json'}
-    ]
+      { code: 'de', name: 'Deutsch', file: 'de.json' },
+    ],
   },
   eslint: {
     config: {
-      standalone: false
-    }
-  }
+      standalone: false,
+    },
+  },
 })

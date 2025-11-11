@@ -61,12 +61,12 @@ Jedes Modul benötigt eine `manifest.ts` Datei, die die Modul-Konfiguration defi
 
 ```typescript
 export default {
-  id: 'accounting',                    // Eindeutige Modul-ID
-  name: 'Accounting',                  // Anzeigename
-  version: '1.0.0',                   // Modul-Version
+  id: 'accounting', // Eindeutige Modul-ID
+  name: 'Accounting', // Anzeigename
+  version: '1.0.0', // Modul-Version
   description: 'Financial accounting module',
   author: 'VeloxERP',
-  
+
   // Routen, die das Modul registriert
   routes: [
     {
@@ -75,7 +75,7 @@ export default {
       name: 'accounting-dashboard'
     }
   ],
-  
+
   // Navigation-Menüeinträge
   navigation: [
     {
@@ -86,7 +86,7 @@ export default {
       order: 10
     }
   ],
-  
+
   // API-Routen
   apiRoutes: [
     {
@@ -95,7 +95,7 @@ export default {
       handler: 'accounting/transactions'
     }
   ],
-  
+
   // Stores
   stores: [
     {
@@ -103,7 +103,7 @@ export default {
       path: 'modules/accounting/stores/accounting'
     }
   ],
-  
+
   // Komponenten
   components: [
     {
@@ -112,13 +112,13 @@ export default {
       global: false
     }
   ],
-  
+
   // Berechtigungen
   permissions: ['accounting.view', 'accounting.edit'],
-  
+
   // Abhängigkeiten zu anderen Modulen
   dependencies: ['core']
-};
+}
 ```
 
 ## Modul-Loader
@@ -126,19 +126,19 @@ export default {
 Der `useModuleLoader` Composable verwaltet das Laden und Entladen von Modulen:
 
 ```typescript
-const { loadModule, unloadModule, getActiveModules, isModuleActive } = useModuleLoader();
+const { loadModule, unloadModule, getActiveModules, isModuleActive } = useModuleLoader()
 
 // Modul laden
-await loadModule('accounting');
+await loadModule('accounting')
 
 // Modul entladen
-await unloadModule('accounting');
+await unloadModule('accounting')
 
 // Aktive Module abrufen
-const activeModules = getActiveModules();
+const activeModules = getActiveModules()
 
 // Prüfen ob Modul aktiv ist
-const isActive = isModuleActive('accounting');
+const isActive = isModuleActive('accounting')
 ```
 
 ## Dynamische Navigation
@@ -165,8 +165,8 @@ export default defineEventHandler(async (event) => {
     status: 200,
     message: 'Transactions retrieved successfully',
     body: transactions
-  };
-});
+  }
+})
 ```
 
 ## Modul-Entwicklung
@@ -207,7 +207,7 @@ export default defineEventHandler(async (event) => {
    // server/api/my-module/data.get.ts
    export default defineEventHandler(async (event) => {
      // API-Logik
-   });
+   })
    ```
 
 ### Modul aktivieren
@@ -251,7 +251,7 @@ export default {
   id: 'advanced-accounting',
   dependencies: ['accounting', 'inventory'],
   // ...
-};
+}
 ```
 
 ### Dynamische Routen
@@ -261,7 +261,7 @@ Module können Routen zur Laufzeit registrieren:
 // In der register-Funktion
 if (module.manifest.routes) {
   for (const route of module.manifest.routes) {
-    await registerModuleRoute(module.manifest.id, route);
+    await registerModuleRoute(module.manifest.id, route)
   }
 }
 ```
@@ -275,7 +275,7 @@ export default {
   currency: 'EUR',
   fiscalYearStart: '01-01',
   defaultTaxRate: 0.19
-};
+}
 ```
 
 ## Troubleshooting

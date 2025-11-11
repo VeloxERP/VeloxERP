@@ -3,12 +3,12 @@ info:
   title: VeloxERP API
   description: |
     # VeloxERP API Documentation
-    
+
     This comprehensive API allows you to interact with the VeloxERP system, providing endpoints to manage product properties and their values.
-    
+
     ## Authentication
     All API requests require authentication (not shown in this documentation). Please contact your system administrator for access.
-    
+
     ## Response Format
     All responses follow a standard format with `status` and either `body` or `message` fields.
   version: 1.0.0
@@ -549,4 +549,4 @@ components:
           description: Hex color code (only applicable for properties of type 'color')
       required:
         - propertyId
-        - value 
+        - value

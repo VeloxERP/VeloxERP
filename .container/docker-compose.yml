@@ -14,7 +14,7 @@ services:
       - mysql_data:/var/lib/mysql
       - ./mysql/my.cnf:/etc/mysql/my.cnf:ro
     ports:
-      - "3306:3306"
+      - '3306:3306'
 
   proxy:
     image: nginx:latest
@@ -23,8 +23,8 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
-      - "80:80"
-      - "443:443"
+      - '80:80'
+      - '443:443'
     depends_on:
       - mysql
       - mailserver
@@ -42,9 +42,9 @@ services:
       - mail_state:/var/mail-state
       - mail_config:/tmp/docker-mailserver
     ports:
-      - "25:25"
-      - "587:587"
-      - "993:993"
+      - '25:25'
+      - '587:587'
+      - '993:993'
     cap_add:
       - NET_ADMIN
     depends_on:

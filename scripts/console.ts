@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node --esm
 import { hideBin } from 'yargs/helpers'
 import yargs from 'yargs'
+
 async function makeUser(argv: any) {
     console.error('Interactive user creation via CLI is not supported with Better Auth. Please use the web interface or the admin API.')
 }
